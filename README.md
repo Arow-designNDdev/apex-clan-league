@@ -1,8 +1,17 @@
-# Apex Clan League: website version
+# Live CWL league leaderboard and scoring platform for Clash of Clans
+
+https://clashofleaguesapexcwl.netlify.app/
+
+<img width="1351" height="681" alt="image" src="https://github.com/user-attachments/assets/b24ad643-74b4-4d77-b9e3-ae30982215c9" />
+<img width="1365" height="665" alt="Screenshot 2026-11-17 080208" src="https://github.com/user-attachments/assets/98eefb37-6a97-4ba3-bdeb-ef12e1b733bc" />
+
+Vanilla JS, Netlify Functions, Netlify Blobs
 
 A CWL league site with a public live leaderboard and a password-protected leader mode.
 Leaders log in, add their clans, pull each CWL day's attacks from the Clash of Clans API,
 and fill in army left by hand. Everyone else just opens the link.
+
+# What’s interesting
 
 ## What is in the folder
 
@@ -14,23 +23,6 @@ and fill in army left by hand. Everyone else just opens the link.
 | `server.mjs` | Runs the same site on your own computer instead of Netlify |
 | `netlify.toml`, `package.json` | Netlify settings |
 | `.env.example` | The secrets the server needs |
-
-## 1. Clash API key
-
-Create the key at developer.clashofclans.com and allow this IP address: **45.79.218.79**
-(that is the RoyaleAPI proxy). The server uses `https://cocproxy.royaleapi.dev/v1` by default.
-
-## 2. Deploy on Netlify
-
-1. Put this folder in a GitHub repository.
-2. On Netlify choose **Add new site, Import an existing project** and pick the repository.
-   The settings come from `netlify.toml`, so just deploy.
-3. In **Site configuration, Environment variables** add three values, then redeploy:
-   - `SUPREME_PASSWORD`: the supreme leader's password (make it long). If you already set
-     `LEADER_PASSWORD` it keeps working as the supreme password, so you can leave it
-   - `SESSION_SECRET`: any long random string (30+ characters)
-   - `COC_TOKEN`: your Clash API key
-4. Open the site. Data is saved in Netlify Blobs, so it survives redeploys.
 
 ## Who can do what
 
@@ -104,11 +96,3 @@ Add `?demo=1` to the address to see made-up demo data without touching the real 
    Data is saved in `data/state.json`. To share it, expose the port with a tunnel
    (for example Cloudflare Tunnel).
 
-## Honest notes
-
-- The Clash API code was tested against a stand-in server built from the API's documented shape,
-  not against the live API. On the first real run, check that players load, a CWL day pulls, and
-  time left looks right (it is 180 seconds minus the attack duration).
-- Netlify's free plan has usage limits that can change; check them if the league gets big.
-- Rotate `SUPREME_PASSWORD` and `SESSION_SECRET` if you ever think they leaked
-  (changing the secret logs everyone out).
